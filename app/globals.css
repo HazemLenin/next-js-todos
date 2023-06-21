@@ -1,3 +1,72 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+	.nav-item {
+		@apply flex justify-center items-center p-3 text-white hover:text-muted transition-colors cursor-pointer;
+	}
+
+	.btn {
+		@apply flex justify-center items-center gap-2 min-w-[9rem] h-10 rounded-md px-2 text-center cursor-pointer transition-colors shadow-md;
+	}
+
+	.btn.btn-primary {
+		@apply bg-primary hover:bg-primary-dark text-white;
+	}
+
+	.btn.btn-secondary {
+		@apply bg-secondary hover:bg-secondary-dark text-white;
+	}
+
+	.btn.btn-success {
+		@apply bg-success hover:bg-success-dark text-white;
+	}
+
+	.btn.btn-warning {
+		@apply bg-warning hover:bg-warning-dark text-black;
+	}
+
+	.btn.btn-danger {
+		@apply bg-danger hover:bg-danger-dark text-white;
+	}
+
+	.btn.btn-squared {
+		@apply min-w-[2.5rem] w-10;
+	}
+
+	.btn[disabled],
+	.btn.btn-disabled {
+		@apply bg-muted text-white cursor-auto;
+	}
+
+	.btn[disabled]:hover,
+	.btn.btn-disabled:hover {
+		@apply bg-muted text-white;
+	}
+
+	.form-group {
+		@apply m-3 flex flex-col;
+	}
+
+	.form-control {
+		@apply px-2 rounded-md border-2 border-muted focus:border-primary outline-none transition-colors h-8;
+	}
+
+	table.table {
+		@apply rounded-md overflow-hidden shadow-md;
+	}
+
+	table.table thead {
+		@apply bg-primary text-white;
+	}
+
+	table.table tbody tr {
+		@apply border-b border-muted hover:bg-muted;
+	}
+
+	table.table th,
+	table.table td {
+		@apply p-2;
+	}
+}

@@ -8,10 +8,20 @@ export default class TodosRepostiroy {
 		this.db = db;
 	}
 
-	async getAllTodos(): Promise<Array<Todo>> {
-		return (await this.db.todo.findMany()).map((entity) =>
-			this.mapToTodo(entity)
-		);
+	async getAllTodos(
+		where?: object,
+		orderBy?: object,
+		skip?: number,
+		take?: number
+	): Promise<Array<Todo>> {
+		var entities = await this.db.todo.findMany({
+			where,
+			orderBy,
+			skip,
+			take,
+		});
+
+		return entities.map((entity) => this.mapToTodo(entity));
 	}
 
 	async getTodoById(id: number): Promise<Todo | null> {
