@@ -12,14 +12,18 @@ export const metadata = {
 
 export default function RootLayout({
 	children,
+	aside,
 }: {
 	children: React.ReactNode;
+	aside: React.ReactNode;
 }) {
 	return (
 		<html lang="en">
 			<body className={inter.className}>
 				<Header />
-				<main className="pt-5">{children}</main>
+				<main className="pt-5">
+					{children} {aside}
+				</main>
 			</body>
 		</html>
 	);

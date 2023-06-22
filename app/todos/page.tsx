@@ -123,12 +123,7 @@ function Todos() {
 								<td>{moment(todo.date).format("yyyy/MM/DD hh:mm A")}</td>
 								<td>{todo.completed ? "yes" : "no"}</td>
 								<td>
-									<Link
-										className="btn btn-primary"
-										href={`/todos/?id=${todo.id}`}
-										as={`/todos/${todo.id}`}
-										prefetch
-									>
+									<Link className="btn btn-primary" href={`/todos/${todo.id}`}>
 										Details
 									</Link>
 								</td>

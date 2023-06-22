@@ -5,8 +5,8 @@ export default function Home() {
 		<section className="flex flex-col justify-center items-center">
 			<h1 className="text-4xl">Todos!</h1>
 			<h2 className="text-3xl">Manage your time instantly!</h2>
-			<Link href="/helloworld" as="/">
-				location
+			<Link href="/post" prefetch>
+				go to post
 			</Link>
 		</section>
 	);
