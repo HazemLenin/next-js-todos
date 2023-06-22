@@ -10,8 +10,8 @@ import Link from "next/link";
 import { Modal, TodoDetails } from "../components";
 
 function Todos() {
-	const titleRef = useRef(null);
-	const completedRef = useRef(null);
+	const titleRef = useRef<HTMLInputElement>(null);
+	const completedRef = useRef<HTMLSelectElement>(null);
 	const completedTypes = ["All", "Completed", "Incompleted"];
 	const [todos, setTodos] = useState<Todo[]>([]);
 	const [loading, setLoading] = useState(true);
@@ -20,21 +20,22 @@ function Todos() {
 	const pathname = usePathname();
 
 	useEffect(() => {
-		titleRef.current!.value = params?.get("title");
-		completedRef.current!.value = params?.get("completed")
-			? params?.get("completed")
-			: completedTypes[0];
+		if (titleRef.current != null)
+			titleRef.current.value = params?.get("title") ?? "";
+		if (completedRef.current != null)
+			completedRef.current.value =
+				params?.get("completed") ?? completedTypes[0];
 		updateTodos();
 	}, []);
 
 	function updateTodos() {
 		router.push(
-			`${pathname}?title=${titleRef.current.value}&completed=${completedRef.current.value}`
+			`${pathname}?title=${titleRef.current?.value}&completed=${completedRef.current?.value}`
 		);
 		setLoading(true);
 		let completed = "";
 
-		switch (completedRef.current.value) {
+		switch (completedRef.current?.value) {
 			case completedTypes[1]:
 				completed = "true";
 				break;
@@ -47,7 +48,7 @@ function Todos() {
 				break;
 		}
 
-		axios(`/api/todos?title=${titleRef.current.value}&completed=${completed}`)
+		axios(`/api/todos?title=${titleRef.current?.value}&completed=${completed}`)
 			.then((res) => {
 				setTodos(res.data);
 				setLoading(false);
