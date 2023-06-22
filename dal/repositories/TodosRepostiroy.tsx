@@ -32,7 +32,7 @@ export default class TodosRepostiroy {
 			return null;
 		}
 
-		return entity;
+		return this.mapToTodo(entity);
 	}
 
 	async createTodo(todo: Todo): Promise<Todo> {
@@ -40,7 +40,7 @@ export default class TodosRepostiroy {
 			data: todo,
 		});
 
-		return entity;
+		return this.mapToTodo(entity);
 	}
 
 	async updateTodo(todo: Todo): Promise<Todo> {
@@ -49,7 +49,7 @@ export default class TodosRepostiroy {
 			data: todo,
 		});
 
-		return entity;
+		return this.mapToTodo(entity);
 	}
 
 	async deleteTodo(id: number) {
@@ -63,6 +63,7 @@ export default class TodosRepostiroy {
 			id: entity.id,
 			title: entity.title,
 			date: entity.date,
+			description: entity.description,
 			completed: entity.completed,
 		};
 	}
