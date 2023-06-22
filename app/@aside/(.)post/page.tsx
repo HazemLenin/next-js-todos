@@ -1,7 +1,8 @@
+import { Modal } from "@/app/components";
 import React from "react";
 
 function page() {
-	return <div>post as slot</div>;
+	return <Modal>post as slot</Modal>;
 }
 
 export default page;

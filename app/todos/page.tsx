@@ -134,10 +134,6 @@ function Todos() {
 			) : (
 				<h2 className="text-3xl">No todos found!</h2>
 			)}
-
-			<Modal show={!!params?.get("id")}>
-				<TodoDetails />
-			</Modal>
 		</section>
 	);
 }
