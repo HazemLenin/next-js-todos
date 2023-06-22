@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
 	const unitOfWork = new UnitOfWork();
-	let id = parseInt(req.query.id);
+	let id = parseInt(req.query.id as string);
 
 	if (Number.isNaN(id)) {
 		res.status(404).end();

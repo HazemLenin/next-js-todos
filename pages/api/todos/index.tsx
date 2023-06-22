@@ -1,9 +1,14 @@
 import { UnitOfWork } from "@/dal/UnitOfWork";
 import { NextApiRequest, NextApiResponse } from "next";
 
+interface searchQuery {
+	title: object;
+	completed?: boolean;
+}
+
 async function handler(req: NextApiRequest, res: NextApiResponse) {
 	const unitOfWork = new UnitOfWork();
-	let where = {
+	let where: searchQuery = {
 		title: {
 			contains: req.query.title,
 		},
