@@ -1,6 +1,7 @@
 import { UnitOfWork } from "@/dal/UnitOfWork";
+import { NextApiRequest, NextApiResponse } from "next";
 
-function handler(req, res) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
 	const unitOfWork = new UnitOfWork();
 	let where = {
 		title: {
@@ -21,10 +22,9 @@ function handler(req, res) {
 			break;
 	}
 
-	unitOfWork.todos
-		.getAllTodos(where)
-		.then((todos) => res.status(200).json(todos))
-		.catch((err) => console.log(err));
+	let todos = await unitOfWork.todos.getAllTodos(where);
+	unitOfWork.complete();
+	res.status(200).json(todos);
 }
 
 export default handler;

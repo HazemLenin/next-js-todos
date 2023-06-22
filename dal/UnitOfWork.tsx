@@ -9,4 +9,8 @@ export class UnitOfWork {
 		this.db = new PrismaClient();
 		this.todos = new TodosRepostiroy(this.db);
 	}
+
+	async complete() {
+		await this.db.$disconnect();
+	}
 }

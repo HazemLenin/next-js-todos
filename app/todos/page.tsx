@@ -1,10 +1,13 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import "react-loading-skeleton/dist/skeleton.css";
-import Skeleton from "react-loading-skeleton";
 import { Todo } from "@/dal/models";
 import axios from "axios";
+import moment from "momnet";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import Link from "next/link";
+
+import { Modal, TodoDetails } from "../components";
 
 function Todos() {
 	const titleRef = useRef(null);
@@ -12,17 +15,22 @@ function Todos() {
 	const completedTypes = ["All", "Completed", "Incompleted"];
 	const [todos, setTodos] = useState<Todo[]>([]);
 	const [loading, setLoading] = useState(true);
+	const params = useSearchParams();
+	const router = useRouter();
+	const pathname = usePathname();
 
 	useEffect(() => {
-		axios("/api/todos")
-			.then((res) => {
-				setTodos(res.data);
-				setLoading(false);
-			})
-			.catch((err) => console.log(err));
+		titleRef.current!.value = params?.get("title");
+		completedRef.current!.value = params?.get("completed")
+			? params?.get("completed")
+			: completedTypes[0];
+		updateTodos();
 	}, []);
 
-	function updateTodos(e) {
+	function updateTodos() {
+		router.push(
+			`${pathname}?title=${titleRef.current.value}&completed=${completedRef.current.value}`
+		);
 		setLoading(true);
 		let completed = "";
 
@@ -50,10 +58,11 @@ function Todos() {
 	return (
 		<section className="flex flex-col items-center gap-5">
 			<h1 className="text-4xl">Your Todos</h1>
+
 			{/* Searching form */}
 			<form
 				onSubmit={(e) => e.preventDefault()}
-				className="flex justify-between"
+				className="flex justify-between w-full"
 			>
 				<div className="form-group">
 					<label htmlFor="title">Title</label>
@@ -82,11 +91,19 @@ function Todos() {
 					</select>
 				</div>
 			</form>
+
 			{/* Table of todos */}
 			{loading ? (
-				<Skeleton count={8} width={500} height={40} />
+				<div className="flex flex-col gap-3 w-2/3">
+					{[1, 2, 3, 4, 5, 6].map((i) => (
+						<div
+							key={i}
+							className="bg-gray-300 animate-pulse w-full h-10 rounded-md"
+						></div>
+					))}
+				</div>
 			) : todos.length > 0 ? (
-				<table className="table">
+				<table className="table w-2/3">
 					<thead>
 						<tr>
 							<th>#</th>
@@ -94,16 +111,26 @@ function Todos() {
 							<th>Description</th>
 							<th>Date</th>
 							<th>Completed</th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
 						{todos.map((todo, i) => (
 							<tr key={todo.id}>
-								<td>{i}</td>
+								<td>{i + 1}</td>
 								<td>{todo.title}</td>
 								<td className="text-muted">{todo.description}</td>
-								<td>{todo.date}</td>
+								<td>{moment(todo.date).format("yyyy/MM/DD hh:mm A")}</td>
 								<td>{todo.completed ? "yes" : "no"}</td>
+								<td>
+									<Link
+										className="btn btn-primary"
+										href={`/todos/?id=${todo.id}`}
+										as={`/odos/${todo.id}`}
+									>
+										Details
+									</Link>
+								</td>
 							</tr>
 						))}
 					</tbody>
@@ -111,6 +138,10 @@ function Todos() {
 			) : (
 				<h2 className="text-3xl">No todos found!</h2>
 			)}
+
+			<Modal show={!!params?.get("id")}>
+				<TodoDetails />
+			</Modal>
 		</section>
 	);
 }

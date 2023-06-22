@@ -37,6 +37,7 @@ module.exports = {
 			muted: colors.gray["200"],
 			white: colors.white,
 			black: colors.black,
+			gray: colors.gray,
 		},
 	},
 	plugins: [],
