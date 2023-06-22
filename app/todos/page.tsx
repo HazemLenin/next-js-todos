@@ -62,7 +62,7 @@ function Todos() {
 			{/* Searching form */}
 			<form
 				onSubmit={(e) => e.preventDefault()}
-				className="flex justify-between w-full"
+				className="flex justify-between"
 			>
 				<div className="form-group">
 					<label htmlFor="title">Title</label>
@@ -98,7 +98,7 @@ function Todos() {
 					{[1, 2, 3, 4, 5, 6].map((i) => (
 						<div
 							key={i}
-							className="bg-gray-300 animate-pulse w-full h-10 rounded-md"
+							className="bg-gray-300 animate-pulse h-10 rounded-md"
 						></div>
 					))}
 				</div>
@@ -126,7 +126,8 @@ function Todos() {
 									<Link
 										className="btn btn-primary"
 										href={`/todos/?id=${todo.id}`}
-										as={`/odos/${todo.id}`}
+										as={`/todos/${todo.id}`}
+										prefetch
 									>
 										Details
 									</Link>
