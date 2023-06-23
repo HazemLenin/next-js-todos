@@ -97,10 +97,7 @@ function Todos() {
 			{loading ? (
 				<div className="flex flex-col gap-3 w-2/3">
 					{[1, 2, 3, 4, 5, 6].map((i) => (
-						<div
-							key={i}
-							className="bg-gray-300 animate-pulse h-10 rounded-md"
-						></div>
+						<div key={i} className="skeleton h-10"></div>
 					))}
 				</div>
 			) : todos.length > 0 ? (
@@ -122,7 +119,7 @@ function Todos() {
 								<td>{todo.title}</td>
 								<td className="text-muted">{todo.description}</td>
 								<td>{moment(todo.date).format("yyyy/MM/DD hh:mm A")}</td>
-								<td>{todo.completed ? "yes" : "no"}</td>
+								<td>{todo.completed ? "Yes" : "No"}</td>
 								<td>
 									<Link className="btn btn-primary" href={`/todos/${todo.id}`}>
 										Details
