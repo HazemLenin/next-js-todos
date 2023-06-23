@@ -69,4 +69,8 @@
 	table.table td {
 		@apply p-2;
 	}
+
+	.skeleton {
+		@apply bg-gray-300 animate-pulse rounded-md;
+	}
 }
