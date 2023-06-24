@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import axios from "axios";
 import { Todo } from "@/dal/models";
-import moment from "momnet";
 
 function TodoDetails() {
 	const [todo, setTodo] = useState<Todo>();
@@ -43,7 +42,7 @@ function TodoDetails() {
 					<table>
 						<tr>
 							<td>Date</td>
-							<td>{moment(todo.date).format("yyyy/MM/DD hh:mm A")}</td>
+							<td>{todo.date.toLocaleString()}</td>
 						</tr>
 						<tr>
 							<td>Description</td>

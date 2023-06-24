@@ -3,11 +3,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Todo } from "@/dal/models";
 import axios from "axios";
-import moment from "momnet";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
-
-import { Modal, TodoDetails } from "../components";
 
 function Todos() {
 	const titleRef = useRef<HTMLInputElement>(null);
@@ -118,7 +115,7 @@ function Todos() {
 								<td>{i + 1}</td>
 								<td>{todo.title}</td>
 								<td className="text-muted">{todo.description}</td>
-								<td>{moment(todo.date).format("yyyy/MM/DD hh:mm A")}</td>
+								<td>{todo.date.toLocaleString()}</td>
 								<td>{todo.completed ? "Yes" : "No"}</td>
 								<td>
 									<Link className="btn btn-primary" href={`/todos/${todo.id}`}>
